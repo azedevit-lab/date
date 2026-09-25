@@ -48,7 +48,7 @@ app.use((req, res, next) => {
       "script-src 'self' 'wasm-unsafe-eval'",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com",
-      "img-src 'self' data:",
+      "img-src 'self' data: blob:",
       "connect-src 'self'",
       "worker-src 'self' blob:",
       "frame-ancestors 'none'",
