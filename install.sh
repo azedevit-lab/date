@@ -10,6 +10,8 @@
 set -euo pipefail
 
 DOMAIN="${DOMAIN:-forfatima.devlab.az}"
+# Cloudflare (narıncı bulud) arxasındadırsa 1: istifadəçinin real IP-si üçün 2 proxy-yə etibar edilir
+CLOUDFLARE="${CLOUDFLARE:-1}"
 APP_USER="datesite"
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PORT=3001
@@ -63,7 +65,7 @@ ADMIN_PASSWORD=$NEW_PASSWORD
 SESSION_SECRET=$(openssl rand -hex 32)
 PORT=$PORT
 HOST=127.0.0.1
-TRUST_PROXY=1
+TRUST_PROXY=$([[ "$CLOUDFLARE" == 1 ]] && echo 2 || echo 1)
 NODE_ENV=production
 DB_PATH=$APP_DIR/data/app.db
 EOF
@@ -144,6 +146,9 @@ else
   echo " Şifrə:   dəyişmədi ($APP_DIR/.env)"
 fi
 echo
-echo " DNS: $DOMAIN üçün A qeydi bu serverin IP-sinə yönəlməlidir,"
-echo "      yoxsa HTTPS sertifikatı alınmayacaq."
+echo " Cloudflare:"
+echo "   1) İlk quraşdırmada A qeydini 'DNS only' (boz bulud) saxla —"
+echo "      Caddy Let's Encrypt sertifikatını alsın (1-2 dəqiqə)."
+echo "   2) Sonra 'Proxied' (narıncı bulud) et və SSL/TLS rejimini"
+echo "      'Full (strict)' qoy. 'Flexible' seçmə — sonsuz yönləndirmə olur."
 echo "────────────────────────────────────────────"

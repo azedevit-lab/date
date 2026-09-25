@@ -18,7 +18,7 @@ ADMIN_PASSWORD=supersecret123 npm run dev
 
 ## Serverdə deploy (təmiz Ubuntu 22.04 / 24.04)
 
-1. DNS: `forfatima.devlab.az` üçün **A qeydi** serverin IP-sinə yönəlsin.
+1. Cloudflare DNS: `forfatima` üçün **A qeydi** serverin IP-sinə, əvvəlcə **DNS only (boz bulud)**.
 2. Serverdə:
    ```bash
    sudo apt-get update && sudo apt-get install -y git
@@ -26,6 +26,9 @@ ADMIN_PASSWORD=supersecret123 npm run dev
    cd /opt/date && sudo bash install.sh
    ```
 3. Skriptin sonunda admin şifrəsi göstərilir (həm də `/opt/date/.env`-də saxlanır).
+4. `https://forfatima.devlab.az` açılandan sonra Cloudflare-də buludu **Proxied (narıncı)** et, **SSL/TLS → Full (strict)** seç. *Flexible* seçmə — sonsuz yönləndirmə olur.
+
+Cloudflare istifadə etmirsənsə: `sudo CLOUDFLARE=0 bash install.sh`.
 
 `install.sh` nə edir: Node 24, Caddy (avtomatik HTTPS), `datesite` systemd servisi, `.env` (təsadüfi şifrə və sessiya açarı), build. Tətbiq yalnız `127.0.0.1:3001`-də dinləyir, xaricə Caddy açılır.
 
