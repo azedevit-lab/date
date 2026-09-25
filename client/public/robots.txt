@@ -1,0 +1,5 @@
+# Hey, recon edirsən? Bəyəndim 😏
+User-agent: *
+Disallow: /
+Disallow: /no-button      # bu düymə mövcud deyil
+Disallow: /secret-date    # artıq planlaşdırılıb
